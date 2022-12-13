@@ -1,38 +1,115 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
+
+/*  css variables */
+:root {
+  --card-bg-01: #fdefe6;
+  --card-bg-02: #d6e5fb;
+  --card-bg-03: #ceebe9;
+  --card-bg-04: #e2f2b2;
+  --primary-color: #0a1d37;
+  --hero-bg: #d6e5fb;
+  --heading-fontSize: 2rem;
+  --small-text-color: #999;
+  --heading-text-color: #0a1d37;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* reset browser default */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  color: var(--small-text-color);
+  font-size: 1rem;
+}
+
+h1,
+h2 {
+  font-size: var(--heading-fontSize);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+/* banner */
+
+/* service */
+.service-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/*  List product*/
+
+.product-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+
+}
+/* common section */
+.common-section {
+  background: linear-gradient(rgba(0,0,0,0.562), rgba(0,0,0,0.562)) , url(./assets/images/hero-img.png) no-repeat center center;
+  background-size: cover;
+  padding: 120px 0;
+  font-weight: 600;
+  color: #fff;
+}
+ /* product details */
+.grid-custom{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 16px;
+}
+
+
+
+@media screen and (max-width: 785px) {
+  .banner, .service, .clock, .footer, .header{
+    padding-left:16px ;
+    padding-right: 16px;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .image-banner{
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+  .footer-col{
+    flex-direction: column;
+  }
+  .footer {
+    text-align: center;
+  }
+  .maxwidth{
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  .nav-links{
+    display: none;
+  }
+  .toggle-menu{
+    display: block;
   }
 }
