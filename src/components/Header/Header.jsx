@@ -1,10 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
-
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../customhook/useAuth'
+import { signOut } from 'firebase/auth';
 import logo from '../../assets/images/eco-logo.png';
 import user from '../../assets/images/user-icon.png';
+import { auth } from '../../firebase.config';
+import { toast } from 'react-toastify';
+
 
 
 const navLinks = [
@@ -29,10 +33,25 @@ export default function Header() {
   const [open , setOpen] = useState(false);
   const location = useLocation();
   const amount= useSelector(state => state.cart.cartItem).length;
-  const toogleMenu =() =>{
+  const {currentUser} = useAuth();
+  const [openUserMenu, setOpenUserMenu] =useState(false);
+  const navigate = useNavigate();
+  const toggleMenu =() =>{
     setOpen(!open);
   }
+  const toggleUserMenu =() =>{
+    setOpenUserMenu(!openUserMenu);
+  }
 
+  const logout = async () =>{
+    signOut(auth).then(() =>{
+      toast.success("Loggout out");
+      navigate('/home')
+    }).catch((error) =>{
+      toast.error(error.message);
+      
+    })
+  }
   return (
     <div className="header shadow-md fixed top-0 left-0 right-0 bg-white">
       <div className="container h-16 flex m-auto items-center justify-between">
@@ -64,12 +83,26 @@ export default function Header() {
               <i className="fa-solid fa-cart-shopping text-lg"></i>
             </div>
           </Link>
-          <div className="user w-8 h-8">
-            <img src={user} alt="" className='w-full h-full'/>
+          <div 
+            onClick={toggleUserMenu}
+            className="user w-8 h-8 relative" >
+            <img src={currentUser ? currentUser.photoURL : user} alt="" className='w-full h-full border rounded-full'/>
+            <div 
+              // onClick={toggleUserMenu}
+
+              className={`${openUserMenu? 'block' : 'hidden'} absolute top-full right-0 p-4 leading-8 bg-white z-20 shadow-sm shadow-slate-500 cursor-pointer`}>
+              {currentUser ? (<span onClick={logout}>Logout</span>):
+                <div className="flex flex-col">
+                  <Link to={"/register"}>SignIn</Link>
+                  <Link to={"/login"}>Login</Link>
+                  <Link to={"/dashboard"}>Dashboard</Link>
+                </div>
+              }
+            </div>
           </div>
 
           <div 
-            onClick={toogleMenu}
+            onClick={toggleMenu}
             className="toggle-menu hidden ml-4 text-lg">
             <i className="fa-solid fa-bars"></i>
           </div>
@@ -78,9 +111,9 @@ export default function Header() {
 
       {open &&  <div className="fixed top-0 right-0 bottom-0 bg-white shadow-md shadow-black w-80 z-40 flex justify-center items-center flex-col">
       <div 
-            onClick={toogleMenu}
+            onClick={toggleMenu}
             className="toggle-menu hidden ml-4 text-4xl text-red-500 absolute top-2 left-2">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
           {navLinks.map((link, index) => (
             <Link 

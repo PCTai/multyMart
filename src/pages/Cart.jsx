@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Helmet from '../components/Helmet/Helmet'
 import { cartActions } from '../redux/slices/cartSlice';
 
@@ -73,7 +74,9 @@ useEffect(() =>{
       ))}
       <div className="text-right mt-6 font-medium">
       <h1>Total : {total}$</h1>
-      <button className='p-2 pl-6 pr-6 bg-gray-900 text-white rounded-lg'>Checkout</button>
+      <Link to={"/checkout"}><button className='p-2 pl-6 pr-6 bg-gray-900 text-white rounded-lg'>Checkout</button></Link>
+      <Link to={"/shop"}><button className='ml-2 p-2 pl-6 pr-6 bg-gray-900 text-white rounded-lg'>Continue Shopping</button></Link>
+
       </div>
 
       </div>

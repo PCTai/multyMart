@@ -11,8 +11,8 @@ import { cartActions } from '../redux/slices/cartSlice';
 const ProductDetails = () => {
   const { id } = useParams();
   const product = products.find(product => product.id === id);
-  const [option , setOption] = useState('desc');
-  const [rating , setRating] = useState(5);
+  const [option, setOption] = useState('desc');
+  const [rating, setRating] = useState(5);
 
   console.log(product);
   const dispatch = useDispatch();
@@ -44,59 +44,60 @@ const ProductDetails = () => {
               Add to cart
             </button>
           </div>
-          
+
         </div>
         <div className="flex mt-6 border-b-2 text-gray-400">
-            <button 
-              className={`p-2 pl-0 pr-6 font-medium  ${option === 'desc' ? 'text-gray-900' : ''}`} 
-              value={'desc'} onClick= {e => setOption(e.target.value)}>Desctription</button>
-            <button 
-              className={`p-2 pl-0 pr-6 font-medium  ${option === 'review' ? "text-gray-900" : ''}`} 
-                value={'review'} onClick= {e => setOption(e.target.value)}>Reviews</button>
+          <button
+            className={`p-2 pl-0 pr-6 font-medium  ${option === 'desc' ? 'text-gray-900' : ''}`}
+            value={'desc'} onClick={e => setOption(e.target.value)}>Desctription</button>
+          <button
+            className={`p-2 pl-0 pr-6 font-medium  ${option === 'review' ? "text-gray-900" : ''}`}
+            value={'review'} onClick={e => setOption(e.target.value)}>Reviews</button>
         </div>
-          {option === 'desc'? 
-            (<div>
-              <p>{product.description}</p>
-            </div>) 
+        {option === 'desc' ?
+          (<div>
+            <p>{product.description}</p>
+          </div>)
 
 
-          : <ListReview reviews={product.reviews}/>}
-        <div className="">
+          : <>
+          <ListReview reviews={product.reviews} />
+          <div className="">
           <h3 className='text-gray-900 mt-8 font-bold mb-4'>Leave your experience</h3>
           <form action="" method="get">
-            <input type="text" placeholder='Enter Name' className='w-full border-2 border-gray-500'/>
-            <div className="flex">
-              <div 
+            <input type="text" placeholder='Enter Name' className='w-full p-2 pl-4 pr-4 border-2 border-gray-500' />
+            <div className="flex mt-4 mb-4">
+              <div
                 onClick={() => setRating(1)}
-              className="">
+                className={`mr-4 ${rating>= 1 ? 'text-yellow-500':""}`}>
                 1<i class="fa-solid fa-star"></i>
               </div>
-              <div 
+              <div
                 onClick={() => setRating(2)}
-              className="">
+                className={`mr-4 ${rating>= 2 ? 'text-yellow-500':""}`}>
                 2<i class="fa-solid fa-star"></i>
 
               </div>
-              <div 
+              <div
                 onClick={() => setRating(3)}
-              className="">
+                className={`mr-4 ${rating>= 3 ? 'text-yellow-500':""}`}>
                 3<i class="fa-solid fa-star"></i>
 
               </div>
-              <div 
+              <div
                 onClick={() => setRating(4)}
-              className="">
+                className={`mr-4 ${rating>= 4 ? 'text-yellow-500':""}`}>
                 4<i class="fa-solid fa-star"></i>
 
               </div>
-              <div 
+              <div
                 onClick={() => setRating(5)}
-              className="">
+                className={`mr-4 ${rating>= 5 ? 'text-yellow-500':""}`}>
                 5<i class="fa-solid fa-star"></i>
 
               </div>
             </div>
-            <textarea name="" id="" rows="5" className='w-full border-2 border-gray-500'></textarea>
+            <textarea name="" id="" rows="5" placeholder='Enter review' className='w-full pl-4 border-2 border-gray-500'></textarea>
             <br />
             <button
               onClick={addToCart}
@@ -105,6 +106,8 @@ const ProductDetails = () => {
             </button>
           </form>
         </div>
+          </>}
+        
       </div>
     </Helmet>
   )

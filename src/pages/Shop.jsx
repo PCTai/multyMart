@@ -14,8 +14,6 @@ const Shop = () => {
   const [filter, setfilter] =useState('all');
   const [sort, setSort] =useState('asc');
   const [search, setSearch] =useState('');
-  console.log(sort, filter, search);
-  console.log(products)
 
   useEffect(() =>{
     setProducts(() =>{
